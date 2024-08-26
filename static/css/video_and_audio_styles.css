@@ -1,0 +1,169 @@
+/* Common styles for both video and audio containers */
+.media-container {
+    position: relative;
+    width: 100%;
+    background: black;
+    padding: 20px;
+    border-radius: 70px;
+}
+
+.media-container .controls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px;
+    border-radius: 30px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.media-container:hover .controls {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.media-container .controls button,
+.media-container .controls input {
+    margin: 0 5px;
+    color: white;
+}
+
+.media-container .custom-range {
+    flex: 1;
+    -webkit-appearance: none; /* Override default styles */
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 8px; /* Add border radius to the input */
+    outline: none;
+    padding: 0;
+    margin: 10px 0;
+    background: linear-gradient(to right, black 0%, black 50%, #ddd 50%, #ddd 100%);
+    border: 4px solid white; /* Bolder border */
+}
+
+.media-container .custom-range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: transparent; /* Use background property on the input instead */
+    border-radius: 8px;
+}
+
+.media-container .custom-range::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: transparent; /* Use background property on the input instead */
+    border-radius: 8px;
+}
+
+.media-container .custom-range::-ms-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: transparent; /* Use background property on the input instead */
+    border-radius: 8px;
+    border-color: transparent;
+    color: transparent;
+}
+
+/* Hide the default thumb */
+.media-container .custom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
+}
+
+.media-container .custom-range::-moz-range-thumb {
+    width: 0;
+    height: 0;
+}
+
+.media-container .custom-range::-ms-thumb {
+    width: 0;
+    height: 0;
+}
+
+.media-container .volume-slider {
+    display: none;
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.media-container .volume-slider input[type="range"] {
+    width: 100px;
+}
+
+.media-container .control_buttons {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Time display styles */
+.media-container .time-display {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* Specific styles for video container */
+.video-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-container video {
+    width: 100%;
+    display: block;
+    height: 100%;
+    object-fit: contain;
+}
+
+.video-container .controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.video-container .center-play-pause {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 50%;
+    opacity: 0;
+    display: block;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.video-container:hover .center-play-pause {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.video-container .center-play-pause:active {
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+/* Specific styles for audio container */
+.audio-container {
+    padding: 20px;
+}

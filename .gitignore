@@ -1,0 +1,20 @@
+.venv/
+.env
+
+db.sqlite3
+
+# Ignore Django migrations
+migrations/
+*/migrations/*
+
+# Ignore IDEs and editors
+.vscode/
+.idea/
+
+# Ignore everything inside materials/ except the directory itself
+materials/*
+!materials/
+
+# Ignore everything inside voice_massages/ except the directory itself
+voice_massages/*
+!voice_massages/

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container" style="height: 86vh">
+        <div class="row" style="height: 100%;">
+            <div class="col col-12 col-xs-12 col-sm-6 col-md-7 col-lg-7 col-xl-8"
+                 style="height: 100%;padding: 5px 20px;display: flex;justify-content: center;align-items: center;flex-direction: column">
+                <div style="background: rgba(138,137,137,0.06);width: 100%;height: 100%;padding-bottom: 10px;">
+                    {% block sub_content %}{% endblock %}
+                </div>
+            </div>
+            <div class="col col-12 col-xs-12 col-sm-6 col-md-5 col-lg-5 col-xl-4" style="padding: 5px 0">
+                <div class="msg-header"
+                     style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;padding: 5px 10px;">
+                    <h4 style="color: white;">Socrate</h4>
+                    <svg id="activate_voice_chat" xmlns="http://www.w3.org/2000/svg" color="white" width="40px"
+                         height="40px" viewBox="0 0 48 48">
+                        <g fill="none" stroke="currentColor" stroke-width="4">
+                            <path d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/>
+                            <path stroke-linecap="round" d="M30 18v12m6-8v4m-18-8v12m-6-8v4m12-12v20"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="chat-page">
+                    <input type="hidden" id="chatSessionId" value="{{ chat_session.id }}">
+                    <div class="msg-inbox">
+                        <div class="chat-messages">
+                            {% for message in chat_messages %}
+                                {% if message.message_type == 'text' %}
+                                    {% if message.sender == request.user %}
+                                        <div class="outgoing-chats">
+                                            <div class="outgoing-msg">
+                                                <div class="outgoing-chats-msg">
+                                                    <p>{{ message.content }}</p>
+                                                    <span class="time">{{ message.timestamp|date:"h:i A" }} | {{ message.timestamp|date:"M d" }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="received-chats">
+                                            <div class="received-msg">
+                                                <div class="received-msg-inbox">
+                                                    <p>{{ message.content }}</p>
+                                                    <span class="time">{{ message.timestamp|date:"h:i A" }} | {{ message.timestamp|date:"M d" }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% elif message.message_type == 'voice' %}
+                                    {% if message.sender == request.user %}
+                                        <div class="outgoing-chats">
+                                            <div class="outgoing-msg">
+                                                <div class="outgoing-chats-msg">
+                                                    {% if message.voice_file %}
+                                                        <audio controls>
+                                                            <source src="{{ message.voice_file.url }}" type="audio/mp3">
+                                                            Your browser does not support the audio element.
+                                                        </audio>
+                                                    {% else %}
+                                                        <p>No audio file available.</p>
+                                                    {% endif %}
+                                                    <span class="time">{{ message.timestamp|date:"h:i A" }} | {{ message.timestamp|date:"M d" }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="received-chats">
+                                            <div class="received-msg">
+                                                <div class="received-msg-inbox">
+                                                    {% if message.voice_file %}
+                                                        <audio controls>
+                                                            <source src="{{ message.voice_file.url }}" type="audio/mp3">
+                                                            Your browser does not support the audio element.
+                                                        </audio>
+                                                    {% else %}
+                                                        <p>No audio file available.</p>
+                                                    {% endif %}
+                                                    <span class="time">{{ message.timestamp|date:"h:i A" }} | {{ message.timestamp|date:"M d" }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="msg-bottom">
+                            <div class="input-group">
+                                <input id="message-input" name="message" type="text" placeholder="Write message..."/>
+                                <div class="input-group-append">
+                        <span class="input-group-text send-icon">
+                            <button type="submit" id="send-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-send" viewBox="0 0 16 16"
+                                     height="25" width="25">
+                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                                </svg>
+                            </button>
+                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

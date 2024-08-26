@@ -1,0 +1,42 @@
+.form_title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    margin: 0;
+}
+
+.form_inputs {
+    padding: 5px;
+    flex: 1;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.form_inputs:focus {
+    outline: none;
+    border: 1px solid black !important;
+    box-shadow: none !important;
+}
+
+.form_buttons {
+    padding: 10px;
+    flex: 1;
+    margin-top: 10px;
+    border-radius: 3px;
+    border: none;
+    background: black;
+    color: white;
+    font-weight: normal;
+}
+
+.form_div {
+    padding: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    margin: 20px auto auto;
+    border-radius: 3px;
+}
+
+.accounts_form {
+    display: flex;
+    flex-direction: column;
+}
