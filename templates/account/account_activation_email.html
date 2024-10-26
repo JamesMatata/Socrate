@@ -1,0 +1,97 @@
+{% autoescape off %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Activate Your Account</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh; /* Center vertically */
+                padding: 40px 0;
+            }
+
+            .content {
+                background: black url('https://drive.google.com/uc?export=view&id=194Lcuj9yzc9RVR-c81Bu4_AwCijCEnMU') no-repeat center center / cover;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                padding: 20px 50px;
+                margin-bottom: 40px;
+                color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .inner-container {
+                width: 60%;
+                background-color: white;
+                border-radius: 10px;
+                padding: 20px;
+                color: black;
+                margin: auto;
+            }
+
+            .inner-container img {
+                width: 60px;
+                height: auto;
+                object-fit: contain;
+            }
+
+            .inner-container h2 {
+                margin-top: 0;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <div class="content">
+            <div class="inner-container">
+                <div style="margin-bottom: 20px;background: black;box-shadow: 0 0 4px black;border-radius: 5px 5px 0 0;padding: 5px;display: flex;flex-direction: row;align-items: center;justify-content: center;"
+                >
+                    <img style="width: 150px;height: 50px;object-fit: contain;"
+                         src="https://drive.google.com/uc?export=view&id=1fIAX9c219J-gSKzgPEh09iUVxiDKwReh"
+                         alt="Socrate logo">
+                </div>
+                <h2 style="text-align: center">Confirmation Email</h2>
+                <hr>
+                <p style="text-align: center">Hello {{ user.first_name }}, Welcome to Socrate! We're excited to have you
+                    on
+                    our platform where students can upload study materials and engage in live text or voice chats with
+                    our
+                    AI to enhance their learning.</p>
+                <p style="text-align: center">Please verify your email by clicking the button below:</p>
+                <a href="http://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}"
+                   style="display: inline-block;padding: 12px 30px;border-radius: 3px;border: none;background-color: black;color: white;text-decoration: none;font-size: 14px;margin: 20px 0;text-align: center;">Confirm
+                    Account</a>
+                <p style="text-align: center">Alternatively, you can use this URL in your browser:</p>
+                <p style="text-align: center"><a href="http://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}">http://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}</a>
+                </p>
+                <p style="text-align: center">Thank you for joining Socrate. We're here to help you succeed in your
+                    studies.</p>
+                <p style="text-align: center">Best Regards, The Socrate Team</p>
+                <hr>
+                <p style="font-size: 12px;color: rgb(156, 161, 156);margin-top: 20px;">If you did not create this
+                    account,
+                    please disregard this email.</p>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+
+{% endautoescape %}

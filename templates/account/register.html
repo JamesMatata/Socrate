@@ -1,0 +1,71 @@
+{% extends "account/accounts_sub.html" %}
+
+{% load static %}
+
+{% block account_content %}
+    <style>
+        .form_title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 25px;
+            margin: 0;
+        }
+
+        .form_inputs {
+            padding: 5px;
+            flex: 1;
+            border: 1px solid black;
+            border-radius: 3px;
+        }
+
+        .form_inputs:focus {
+            outline: none;
+            border: 1px solid black !important;
+            box-shadow: none !important;
+        }
+
+        .form_buttons {
+            padding: 10px;
+            flex: 1;
+            margin-top: 10px;
+            border-radius: 3px;
+            border: none;
+            background: black;
+            color: white;
+            font-weight: normal;
+        }
+
+        .form_div {
+            padding: 10px;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+            margin: 20px auto auto;
+            border-radius: 3px;
+        }
+
+        .accounts_form {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+    <div class="col col-11 colo-xs-10 col-sm-6 col-md-5 col-lg-4 col-xl-3 form_div">
+        <h2 class="form_title">SignUp</h2>
+        <hr>
+        <form action="{% url 'accounts:register' %}" method="post" class="accounts_form">
+            {% csrf_token %}
+            <label for="first_name">First name:</label>
+            <input class="form_inputs" type="text" name="first_name" id="first_name">
+            <label for="username">Username:</label>
+            <input class="form_inputs" type="text" name="username" id="username">
+            <label for="email">Email:</label>
+            <input class="form_inputs" type="email" name="email" id="email">
+            <label for="password1">Create Password:</label>
+            <input class="form_inputs" type="password" name="password1" id="password1">
+            <label for="password2">Confirm Password:</label>
+            <input class="form_inputs" type="password" name="password2" id="password2">
+            <button type="submit" class="form_buttons">Register</button>
+        </form>
+        <hr>
+        <p style="text-align: center;font-size: 14px;">Have an account?<a href="{% url 'accounts:login' %}">LogIn</a>
+        </p>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "account/accounts_sub.html" %}
+
+{% load static %}
+
+{% block account_content %}
+    <div class="col col-11 colo-xs-10 col-sm-6 col-md-5 col-lg-4 col-xl-3 form_div">
+        <h2 class="form_title">LogIn</h2>
+        <hr>
+        <form action="{% url 'accounts:login' %}" method="post" class="accounts_form">
+            {% csrf_token %}
+            <label for="email">Email:</label>
+            <input class="form_inputs" type="email" name="email" id="email">
+            <label for="password">Password:</label>
+            <input class="form_inputs" type="password" name="password" id="password">
+            <button type="submit" class="form_buttons">LogIn</button>
+        </form>
+        <p style="text-align: right;font-size: 14px;"><a href="{% url 'accounts:password_reset' %}">Forgot password?</a>
+        </p>
+        <hr>
+        <p style="text-align: center;font-size: 14px;">Don't have an account?<a href="{% url 'accounts:register' %}">Register</a>
+        </p>
+    </div>
+{% endblock %}

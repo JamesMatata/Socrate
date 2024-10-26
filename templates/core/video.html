@@ -1,0 +1,71 @@
+{% extends 'core/sub_base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/video.css' %}">
+{% endblock %}
+
+{% block sub_content %}
+    <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;width: 100%;height: 100%">
+        <div class="video-container">
+            <video id="myVideo" width="100%">
+                <source src="{% url 'core:serve_media' path=material.file.name %}" type="video/mp4">
+                Your browser does not support the video element.
+            </video>
+            <button class="center-play-pause" id="centerPlayPauseBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"
+                          d="M3 12v6.967c0 2.31 2.534 3.769 4.597 2.648l3.203-1.742M3 8V5.033c0-2.31 2.534-3.769 4.597-2.648l12.812 6.968a2.998 2.998 0 0 1 0 5.294l-6.406 3.484"></path>
+                </svg>
+            </button>
+            <div class="controls">
+                <button class="control_buttons" id="backwardBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="1.5" d="M4.5 12l5-5m-5 5l5 5m-5-5h6.5m3.5 0c1.667 0 5 1 5 5"/>
+                    </svg>
+                </button>
+                <button class="control_buttons" id="playPauseBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"
+                              d="M3 12v6.967c0 2.31 2.534 3.769 4.597 2.648l3.203-1.742M3 8V5.033c0-2.31 2.534-3.769 4.597-2.648l12.812 6.968a2.998 2.998 0 0 1 0 5.294l-6.406 3.484"/>
+                    </svg>
+                </button>
+                <button class="control_buttons" id="forwardBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="1.5" d="m19.5 12l-5-5m5 5l-5 5m5-5H13m-3.5 0c-1.667 0-5 1-5 5"/>
+                    </svg>
+                </button>
+                <input type="range" id="seekBar" max="100" min="0" value="0" class="custom-range">
+                <button class="control_buttons" id="muteBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                              d="M12 3.75v16.5a.75.75 0 0 1-1.255.555L5.46 16H2.75A1.75 1.75 0 0 1 1 14.25v-4.5C1 8.784 1.784 8 2.75 8h2.71l5.285-4.805A.75.75 0 0 1 12 3.75M6.255 9.305a.75.75 0 0 1-.505.195h-3a.25.25 0 0 0-.25.25v4.5c0 .138.112.25.25.25h3c.187 0 .367.069.505.195l4.245 3.86V5.445ZM16.28 8.22a.75.75 0 1 0-1.06 1.06L17.94 12l-2.72 2.72a.75.75 0 1 0 1.06 1.06L19 13.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L20.06 12l2.72-2.72a.75.75 0 0 0-1.06-1.06L19 10.94z"/>
+                    </svg>
+                </button>
+                <button class="control_buttons" id="volumeBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 48 48">
+                        <g fill="none" stroke="currentColor" stroke-width="4">
+                            <path d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/>
+                            <path stroke-linecap="round" d="M30 18v12m6-8v4m-18-8v12m-6-8v4m12-12v20"/>
+                        </g>
+                    </svg>
+                </button>
+                <div class="volume-slider">
+                    <input type="range" id="volumeBar" value="1" min="0" max="1" step="0.1" class="custom-range">
+                </div>
+                <span style="font-weight: bold;color: white;font-size: 15px;" id="currentTime">0:00 </span> <span
+                    style="font-weight: bold;font-size: 16px;color: white;">/</span> <span
+                    style="font-size: 15px;font-weight: bold;color: white;" id="duration"> 0:00</span>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="chatSessionId" value="{{ chat_session }}">
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/chat.js' %}"></script>
+    <script src="{% static 'js/video.js' %}"></script>
+{% endblock %}
