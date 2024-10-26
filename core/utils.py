@@ -11,6 +11,7 @@ import spacy
 import requests
 from PIL import Image
 from docx import Document
+from decouple import config
 from moviepy.editor import VideoFileClip
 from transformers import pipeline
 import azure.cognitiveservices.speech as speechsdk
@@ -187,8 +188,8 @@ def transcribe_audio(audio_path):
     if not os.path.exists(audio_path):
         return ""
 
-    speech_key = "ae01fc5132af49cbb9e9c3549d04e865"
-    service_region = "southafricanorth"
+    speech_key = config("AZURE_SPEECH_KEY")
+    service_region = config("SERVICE_REGION")
 
     if not speech_key or not service_region:
         return ""
@@ -237,8 +238,8 @@ def process_audio_file(input_audio_path):
 # Analyze video frames using Azure Computer Vision
 def analyze_video_frames(video_path):
     # Replace with your Azure Computer Vision subscription key and endpoint
-    subscription_key = "ba7c3b8fda124933969b52f1781e25ff"
-    endpoint = "https://socratecomputervision.cognitiveservices.azure.com/"
+    subscription_key = config("AZURE_COMPUTER_VISION_KEY")
+    endpoint = config("AZURE_COMPUTER_VISION_ENDPOINT")
 
     ocr_url = endpoint + "/vision/v3.2/read/analyze"
 
