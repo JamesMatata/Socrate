@@ -159,15 +159,32 @@ def upload_material(request):
                     material.summary = summarize_text(processed_text)
                     material.entities = extract_entities(processed_text)
 
-                    # Only save if transcript, summary, and entities are set
-                    if material.transcript and material.summary and material.entities:
-                        if material.transcript.strip() and material.summary.strip() and material.entities.strip():
-                            material.save()
-                            return JsonResponse({'success': True, 'material_id': material.id})
+                    # Convert summary and entities to strings if they are lists or non-string types
+                    if isinstance(material.summary, list):
+                        material.summary = " ".join(material.summary)  # Join list into a single string
+                    elif not isinstance(material.summary, str):
+                        material.summary = str(material.summary)  # Convert any other types to string
+
+                    if isinstance(material.entities, list):
+                        material.entities = " ".join(
+                            [f"{ent[0]} ({ent[1]})" for ent in material.entities])  # Format entity list to string
+                    elif not isinstance(material.entities, str):
+                        material.entities = str(material.entities)  # Convert any other types to string
+
+                    # Only save if transcript, summary, and entities are set and non-empty
+                    if all([material.transcript, material.summary, material.entities]) and \
+                            all([material.transcript.strip(), material.summary.strip(), material.entities.strip()]):
+                        material.save()
+                        return JsonResponse({'success': True, 'material_id': material.id})
                     else:
+                        # Dispose of the material object if fields are empty
+                        material.delete()
                         return JsonResponse(
-                            {'success': False, 'error': 'Processing incomplete. Required fields missing.'})
+                            {'success': False, 'error': 'Processing incomplete. Required fields are empty.'})
+
                 else:
+                    # Dispose of the material object if processing fails
+                    material.delete()
                     return JsonResponse({'success': False, 'error': 'Error processing material text'})
 
             except Exception as e:

@@ -59,13 +59,16 @@ def summarize_text(text):
             temp_chunk += " " + chunk
         else:
             if temp_chunk:
-                summary = summarizer(temp_chunk.strip(), max_length=150, min_length=30, do_sample=False)
+                # Set max_length dynamically based on chunk length
+                chunk_max_length = min(150, int(len(temp_chunk.split()) * 0.5))
+                summary = summarizer(temp_chunk.strip(), max_length=chunk_max_length, min_length=30, do_sample=False)
                 summaries.append(summary[0]['summary_text'])
             temp_chunk = chunk  # Start a new temp_chunk
 
     # Summarize any remaining text in temp_chunk
     if temp_chunk:
-        summary = summarizer(temp_chunk.strip(), max_length=150, min_length=30, do_sample=False)
+        chunk_max_length = min(150, int(len(temp_chunk.split()) * 0.5))
+        summary = summarizer(temp_chunk.strip(), max_length=chunk_max_length, min_length=30, do_sample=False)
         summaries.append(summary[0]['summary_text'])
 
     # Combine summaries into a single output

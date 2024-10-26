@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeDeleteModal = document.getElementById('closeDeleteModal');
     const cancelDeleteButton = document.getElementById('cancelDeleteButton');
     const confirmDeleteButton = document.getElementById('confirmDeleteButton');
-    let materialIdToDelete = null;
+    let materialIdToDelete;
     const modalUploadButton = uploadModal.querySelector('#upload_material');
 
     uploadButton.addEventListener('click', function () {
@@ -53,9 +53,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to handle delete material
     function deleteMaterial(materialId) {
-        const csrfToken = '{{ csrf_token }}';
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const deleteUrl = `/delete_material/${materialId}/`;
+        console.log(deleteUrl);
 
-        fetch(`{% url "core:delete_material" 0 %}`.replace('0', materialId), {
+        fetch(deleteUrl, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': csrfToken,
@@ -76,24 +78,29 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+
     // Event listener for delete buttons
     document.querySelectorAll('.delete_study_material_button').forEach(button => {
         button.addEventListener('click', function (e) {
             e.preventDefault();
             materialIdToDelete = this.getAttribute('data-id');
+            console.log("Material ID to delete:", materialIdToDelete);  // Log the ID
             deleteConfirmationModal.showModal();
         });
     });
 
     closeDeleteModal.addEventListener('click', function () {
+        console.log("Close delete modal clicked");  // Log close button
         deleteConfirmationModal.close();
     });
 
     cancelDeleteButton.addEventListener('click', function () {
+        console.log("Cancel delete button clicked");  // Log cancel button
         deleteConfirmationModal.close();
     });
 
     confirmDeleteButton.addEventListener('click', function () {
+        console.log("Confirm delete button clicked");  // Log confirm button
         if (materialIdToDelete) {
             deleteMaterial(materialIdToDelete);
             deleteConfirmationModal.close();

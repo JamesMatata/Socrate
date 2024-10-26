@@ -209,6 +209,7 @@
                             Recent Files</h3>
                         <div style="max-height: 100px;overflow-y: scroll;width: 100%">
                             <ul class="recent_file_list">
+                            <meta name="csrf-token" content="{{ csrf_token }}">
                                 {% if materials %}
                                     {% for material in materials %}
                                         <li>
@@ -228,7 +229,7 @@
                                         </li>
                                     {% endfor %}
                                 {% else %}
-                                    <p style="margin: 20px auto;">No file uploaded yet</p>
+                                    <p style="margin: 20px auto;text-align: center">No file uploaded yet</p>
                                 {% endif %}
                             </ul>
                         </div>

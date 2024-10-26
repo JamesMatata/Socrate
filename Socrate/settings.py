@@ -125,4 +125,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 OPENAI_API_KEY = config('OPENAI_API_KEY')
+print(OPENAI_API_KEY)
 
